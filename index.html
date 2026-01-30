@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+
+  <style>
+    :root {
+      /* Dark, Google-ish base */
+      --bg: #202124;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --card: #303134;
+      --card-hover: #3c4043;
+      --shadow: 0 2px 10px rgba(0,0,0,.35);
+      --radius: 999px;
+
+      /* ⭐ Controls (tweak these) */
+      --accent-bright: 0.5;  /* try 0.90 (softer) to 1.15 (brighter) */
+      --accent-sat: 1.10;     /* try 0.90 (muted) to 1.10 (punchier) */
+      --hover-dim: 0.52;      /* lower = dims more on hover */
+
+      /* Rainbow (direct hex, self-contained) */
+      --rb-1:  #ff9aa2; /* soft rose */
+      --rb-2:  #ffd1dc; /* pink */
+      --rb-3:  #ffbb88; /* orange */
+      --rb-4:  #fffa9e; /* yellow */
+      --rb-5:  #a7fbb4; /* green */
+      --rb-6:  #8ceaff; /* sky */
+      --rb-7:  #9cb8ff; /* blue */
+      --rb-8:  #bba3ff; /* indigo */
+      --rb-9:  #d2a9ff; /* violet */
+      --rb-10: #c2b2e0; /* lilac */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .wrap {
+      width: min(920px, 100%);
+      text-align: center;
+      padding-top: 6vh;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .quote {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    /* Pill button */
+    a.btn {
+      /* per-button accent gets assigned below via nth-child */
+      --accent: var(--rb-1);
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      padding: 14px 18px;
+      min-width: 120px;
+
+      border-radius: var(--radius);
+      background: none;
+      color: var(--text);
+      text-decoration: none;
+
+      /* outline becomes the gradient effect across buttons */
+      border: 1px solid color-mix(in srgb, var(--accent) 70%, rgba(255,255,255,.10));
+      box-shadow: var(--shadow);
+
+      /* you asked for dimming on hover across whole pill */
+      transition: background .15s ease, transform .08s ease, filter .15s ease, border-color .15s ease;
+      user-select: none;
+
+      /* apply your global brightness/saturation knobs to the accent */
+      /* (border uses --accent, icon uses filter too) */
+    }
+
+    a.btn:hover {
+      background: var(--card-hover);
+      transform: translateY(-1px);
+      filter: brightness(var(--hover-dim));
+    }
+
+    a.btn:active {
+      transform: translateY(0);
+    }
+
+    /* Icon square - uses same accent as outline */
+    .icon {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      border-radius: 6px;
+
+      background: var(--accent);
+      border: none;
+
+      /* global knobs */
+      filter: saturate(var(--accent-sat)) brightness(var(--accent-bright));
+    }
+
+    /* optional tiny “alive” pop */
+    a.btn:hover .icon {
+      filter: saturate(calc(var(--accent-sat) * 1.03)) brightness(calc(var(--accent-bright) * 1.06));
+    }
+
+    /* 🌈 Assign per-button accent (loops forever) */
+    .row .btn:nth-child(10n + 1)  { --accent: var(--rb-1); }
+    .row .btn:nth-child(10n + 2)  { --accent: var(--rb-2); }
+    .row .btn:nth-child(10n + 3)  { --accent: var(--rb-3); }
+    .row .btn:nth-child(10n + 4)  { --accent: var(--rb-4); }
+    .row .btn:nth-child(10n + 5)  { --accent: var(--rb-5); }
+    .row .btn:nth-child(10n + 6)  { --accent: var(--rb-6); }
+    .row .btn:nth-child(10n + 7)  { --accent: var(--rb-7); }
+    .row .btn:nth-child(10n + 8)  { --accent: var(--rb-8); }
+    .row .btn:nth-child(10n + 9)  { --accent: var(--rb-9); }
+    .row .btn:nth-child(10n + 10) { --accent: var(--rb-10); }
+
+    /* Keep text crisp even when button dims */
+    a.btn, a.btn * { -webkit-font-smoothing: antialiased; }
+
+    .hint {
+      margin-top: 22px;
+      font-size: 12px;
+      color: var(--muted);
+      opacity: .9;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <h2>Here's to another day of outward smiles and inward screams…</h2>
+    <p class="quote">Tip: Stress balls are not for throwing at people!</p>
+
+    <div class="row">
+      <a class="btn" href="https://mail.google.com/" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        Gmail
+      </a>
+
+      <a class="btn" href="https://drive.google.com/drive/u/0/folders/1gOOBSpcjzgcZLqEb0968F2VEjOEXhyPe" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        Drive
+      </a>
+
+      <a class="btn" href="https://acrobat.adobe.com/" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        Sign
+      </a>
+
+      <a class="btn" href="https://squareup.com/dashboard/pos/overview" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        Pay
+      </a>
+
+      <a class="btn" href="https://twonline-24.taxwise.com/User/Login.aspx?ReturnUrl=%2FSettings.aspx" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        24
+      </a>
+
+      <a class="btn" href="https://twonline-25.taxwise.com/User/Login.aspx?ReturnUrl=%2F" target="_blank" rel="noopener">
+        <span class="icon" aria-hidden="true"></span>
+        25
+      </a>
+    </div>
+
+    <div class="hint">Breathe deep… don’t kill anyone…</div>
+  </main>
+</body>
+</html>
