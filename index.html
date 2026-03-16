@@ -207,11 +207,23 @@
         25
       </a>
     </div>
-    <div style="text-align:center;">
-  <img src="images/stallonetax.jpg" width="300px" style="margin-right:20px;">
-  <img src="images/tax-professional-meme.jpeg" width="300px">
-</div>
+
     <div class="hint">Tip: To get plenty of exercise at work : jump to conclusions, push your luck, dodge deadlines.. and repeat! </div>
+ <div style="text-align:center;">
+  <img id="rotator" width="300px">
+</div>
+
+<script>
+const images = [
+  "images/stallonetax.jpg",
+  "images/tax-professional-meme.jpeg",
+  "images/password-meme.png"
+];
+
+const randomImage = images[Math.floor(Math.random() * images.length)];
+document.getElementById("rotator").src = randomImage;
+</script>
+  
   </main>
 </body>
 </html>
